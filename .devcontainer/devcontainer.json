@@ -5,7 +5,8 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/python:3-3.14-trixie",
 	"features": {
-		"ghcr.io/devcontainers/features/azure-cli:1": {}
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -16,6 +17,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	,"postCreateCommand": "git lfs install"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
