@@ -18,19 +18,32 @@ host = os.environ["SERVER_URL"]
 port = os.environ["TITLE_AGENT_PORT"]
 
 # Define agent skills
-
+skills = [
+    AgentSkill(
+        id="generate-title-skill",  # 任意のユニークなIDを追加
+        name="generate-title",
+        description="Generates a clear and catchy title for a blog post based on a topic.",
+        tags=["title", "generation"]  # タグのリストを追加（空配列 `[]` でも可）
+    )
+]
 
 # Create agent card
-
+card = AgentCard(
+    name="title-agent",
+    url=f"http://{host}:{port}",
+    description="An AI Foundry Agent that generates a title for a blog post.",
+    skills=skills,
+    capabilities=AgentCapabilities(supports_async_execution=True),
+)
 
 # Create agent executor
-
+executor = create_foundry_agent_executor(card)
 
 # Create request handler
-
+handler = DefaultRequestHandler(executor, InMemoryTaskStore())
 
 # Create A2A application
-
+a2a_app = A2AStarletteApplication(card, handler)
 
 # Get routes
 routes = a2a_app.routes()
@@ -50,4 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

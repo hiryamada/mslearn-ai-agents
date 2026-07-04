@@ -112,7 +112,7 @@ class RoutingAgent:
             raise ValueError(f'Agent {agent_name} not found')
         
         # Retrieve the remote agent's A2A client using the agent name 
-        
+        client = self.remote_agent_connections[agent_name]
 
         if not client:
             raise ValueError(f'Client not available for {agent_name}')
@@ -120,13 +120,13 @@ class RoutingAgent:
         message_id = str(uuid.uuid4())
 
         # Construct the payload to send to the remote agent
-        
+        params = MessageSendParams(text=task, context_id=message_id, task_callback=self.task_callback)
         
         # Wrap the payload in a SendMessageRequest object
-        
+        request = SendMessageRequest.from_params(params)
 
         # Send the message to the remote agent client and await the response
-        
+        send_response = await client.send_message(request)
         
         if not isinstance(send_response.root, SendMessageSuccessResponse):
             print('received non-success response. Aborting get task ')
@@ -182,7 +182,7 @@ class RoutingAgent:
             # Create message in the thread
             self.agents_client.messages.create(
                 thread_id=self.current_thread.id, 
-                role=MessageRole.User, 
+                role=MessageRole.USER, 
                 content=user_message
             )
 
