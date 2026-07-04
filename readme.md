@@ -14,3 +14,6 @@ If you choose to run the code from applications in this repository locally, it w
 
 If you encounter any problems in the exercises, please report them as **issues** in this repo.
 
+## Tips
+
+python -W "ignore:[SKILLS]" -W "ignore:[HARNESS]" agent-framework.py
